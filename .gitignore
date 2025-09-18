@@ -1,0 +1,98 @@
+# =========================
+# .NET 8 / ASP.NET Core API
+# =========================
+
+# Build results
+bin/
+obj/
+out/
+Debug/
+Release/
+
+# Visual Studio files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# Logs
+*.log
+
+# NuGet packages
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.nuget.props
+*.nuget.targets
+
+# DotCover
+.idea/
+*.dotCover
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+*.pubxml
+*.pubxml.user
+
+# Dotnet tools
+.dotnet-tools/
+
+# =========================
+# Angular 19 (Frontend)
+# =========================
+
+# compiled output
+dist/
+tmp/
+out-tsc/
+
+# dependencies
+node_modules/
+.angular/
+
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Angular cache
+.angular/cache/
+
+# Environment files (keep only templates!)
+src/environments/*.ts
+!src/environments/environment.example.ts
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# =========================
+# OS specific
+# =========================
+ehthumbs.db
+Icon?

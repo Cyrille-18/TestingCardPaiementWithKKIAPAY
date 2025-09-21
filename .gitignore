@@ -51,6 +51,9 @@ publish/
 # Dotnet tools
 .dotnet-tools/
 
+#env files
+.env
+
 # =========================
 # Angular 19 (Frontend)
 # =========================

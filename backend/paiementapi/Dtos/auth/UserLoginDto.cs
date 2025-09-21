@@ -1,3 +1,7 @@
+// <copyright file="UserLoginDto.cs" company="Cyrille-18">
+// Copyright (c) Cyrille-18. All rights reserved.
+// </copyright>
+
 namespace paiementapi.Dtos.auth
 {
     using System;

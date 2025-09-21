@@ -28,10 +28,5 @@ namespace paiementapi.Dtos.auth
         /// Gets or sets the password of the user.
         /// </summary>
         public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the role of the user.
-        /// </summary>
-        public string Role { get; set; }
     }
 }

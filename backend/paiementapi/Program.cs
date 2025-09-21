@@ -85,7 +85,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<JwtHelper>();
 builder.Services.AddSingleton<IEmailService, EmailService>();
-
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

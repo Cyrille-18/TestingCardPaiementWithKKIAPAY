@@ -20,11 +20,16 @@ namespace paiementapi.Dtos.auth
         /// <summary>
         /// Gets or sets the authentication token.
         /// </summary>
-        public string Token { get; set; }
+        public string token { get; set; }
 
         /// <summary>
-        /// Gets or sets the username of the authenticated user.
+        /// Gets or sets the refresh token for token renewal.
         /// </summary>
-        public string Username { get; set; }
+        public string refreshToken { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user information.
+        /// </summary>
+        public UserDto user { get; set; }
     }
 }

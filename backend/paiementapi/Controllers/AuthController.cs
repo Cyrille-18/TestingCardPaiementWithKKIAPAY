@@ -72,7 +72,7 @@ namespace paiementapi.Controllers
         }
 
         /// <summary>
-        /// Confirms a user's email address using the provided user ID and confirmation token.
+        /// Confirms a user's email address using the provided user ID and encoded token.
         /// </summary>
         /// <param name="userId">The ID of the user whose email is being confirmed.</param>
         /// <param name="token">The email confirmation token.</param>
@@ -84,11 +84,12 @@ namespace paiementapi.Controllers
             try
             {
                 await this._authService.ConfirmEmailAsync(userId, token);
-                return this.Ok(new { message = "Email confirmé, vous pouvez maintenant vous connecter." });
+                
+                return Ok(new { message = "Votre email a été confirmé." });
             }
-            catch
+            catch (Exception ex)
             {
-                return this.BadRequest(new { message = "Lien de confirmation invalide ou expiré" });
+                return BadRequest(new { message = "Impossible de confirmer l'email." });
             }
         }
 
@@ -108,7 +109,32 @@ namespace paiementapi.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(new { message = ex.Message });
+                // Handle email confirmation case specifically
+                if (ex.Message.Contains("confirmer votre adresse email"))
+                {
+                    return this.BadRequest(ex.Message);
+                }
+                return this.BadRequest("Email ou mot de passe incorrect");
+            }
+        }
+
+        /// <summary>
+        /// Refreshes an authentication token using a refresh token.
+        /// </summary>
+        /// <param name="refreshTokenDto">The refresh token data transfer object.</param>
+        /// <returns>An IActionResult indicating the result of the token refresh process.</returns>
+        [HttpPost("refresh")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
+        {
+            try
+            { 
+                var result = await this._authService.RefreshTokenAsync(refreshTokenDto.RefreshToken);
+                return this.Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest("Session expirée, veuillez vous reconnecter");
             }
         }
     }

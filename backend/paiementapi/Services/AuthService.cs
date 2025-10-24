@@ -24,8 +24,8 @@ namespace paiementapi.Services
     {
         private readonly IUserRepository _userRepo;
         private readonly JwtHelper _jwt;
-
         private readonly IEmailService _emailService;
+        private readonly RefreshTokenService _refreshTokenService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthService"/> class.
@@ -33,11 +33,13 @@ namespace paiementapi.Services
         /// <param name="userRepo">The user repository instance.</param>
         /// <param name="jwt">The JWT helper instance.</param>
         /// <param name="emailService">The email service instance.</param>
-        public AuthService(IUserRepository userRepo, JwtHelper jwt, IEmailService emailService)
+        /// <param name="refreshTokenService">The refresh token service instance.</param>
+        public AuthService(IUserRepository userRepo, JwtHelper jwt, IEmailService emailService, RefreshTokenService refreshTokenService)
         {
             this._userRepo = userRepo;
             this._jwt = jwt;
             this._emailService = emailService;
+            this._refreshTokenService = refreshTokenService;
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace paiementapi.Services
             var existingUser = await this._userRepo.GetByEmailAsync(dto.Email);
             if (existingUser != null)
             {
-                throw new Exception("Cet email est déjà utilisé");
+                throw new Exception("Un compte avec cet email existe déjà");
             }
 
             var user = new IdentityUser
@@ -66,8 +68,8 @@ namespace paiementapi.Services
             var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
 
             var frontendUrl = Environment.GetEnvironmentVariable("FRONTEND_URL")
-                              ?? throw new Exception("FRONTEND_URL est manquant dans .env");
-            var confirmationLink = $"{frontendUrl}/confirm-email?userId={user.Id}&token={encodedToken}";
+                              ?? throw new Exception("FRONTEND_URL est manquant");
+            var confirmationLink = $"{frontendUrl}/email-confirmed?userId={user.Id}&token={encodedToken}";
 
             var html = EmailTemplates.GetEmailConfirmationTemplate(user.UserName, confirmationLink);
             await this._emailService.SendEmailAsync(user.Email, "Confirmez votre email", html);
@@ -83,7 +85,7 @@ namespace paiementapi.Services
             var existingUser = await this._userRepo.GetByEmailAsync(dto.Email);
             if (existingUser != null)
             {
-                throw new Exception("Cet email est déjà utilisé");
+                throw new Exception("Un compte avec cet email existe déjà");
             }
 
             var user = new IdentityUser
@@ -99,10 +101,20 @@ namespace paiementapi.Services
             var roles = await this._userRepo.GetRolesAsync(user);
             var token = this._jwt.GenerateJwtToken(user, roles);
 
+            // Generate refresh token for admin
+            var refreshToken = await this._refreshTokenService.CreateRefreshTokenAsync(user);
+
             return new AuthResponseDto
             {
-                Token = token,
-                Username = user.UserName,
+                token = token,
+                refreshToken = refreshToken.Token,
+                user = new UserDto
+                {
+                    id = user.Id,
+                    name = user.UserName,
+                    email = user.Email,
+                    emailConfirmed = user.EmailConfirmed
+                }
             };
         }
 
@@ -113,10 +125,10 @@ namespace paiementapi.Services
         /// <param name="encodedToken">The encoded email confirmation token.</param>
         public async Task ConfirmEmailAsync(string userId, string encodedToken)
         {
-            var user = await this._userRepo.GetByEmailAsync(userId);
+            var user = await this._userRepo.GetByIdAsync(userId);
             if (user == null)
             {
-                throw new Exception("Lien invalide");
+                throw new Exception("Lien de confirmation invalide");
             }
 
             var token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(encodedToken));
@@ -124,7 +136,7 @@ namespace paiementapi.Services
 
             if (!result.Succeeded)
             {
-                throw new Exception("Impossible de confirmer l'email");
+                throw new Exception("Erreur lors de la confirmation de l'email");
             }
         }
 
@@ -139,21 +151,67 @@ namespace paiementapi.Services
 
             if (user == null || !await this._userRepo.CheckPasswordAsync(user, dto.Password))
             {
-                throw new Exception("Identifiants invalides");
+                throw new Exception("Email ou mot de passe incorrect");
             }
 
             if (!user.EmailConfirmed)
             {
-                throw new Exception("Veuillez confirmer votre email avant de vous connecter.");
+                throw new Exception("Veuillez confirmer votre adresse email avant de vous connecter");
             }
 
             var roles = await this._userRepo.GetRolesAsync(user);
             var token = this._jwt.GenerateJwtToken(user, roles);
 
+            // Generate refresh token
+            var refreshToken = await this._refreshTokenService.CreateRefreshTokenAsync(user);
+
             return new AuthResponseDto
             {
-                Token = token,
-                Username = user.UserName,
+                token = token,
+                refreshToken = refreshToken.Token,
+                user = new UserDto
+                {
+                    id = user.Id,
+                    name = user.UserName,
+                    email = user.Email,
+                    emailConfirmed = user.EmailConfirmed
+                }
+            };
+        }
+
+        /// <summary>
+        /// Refreshes an authentication token using a refresh token.
+        /// </summary>
+        /// <param name="refreshToken">The refresh token.</param>
+        /// <returns>An authentication response DTO with new tokens.</returns>
+        public async Task<AuthResponseDto> RefreshTokenAsync(string refreshToken)
+        {
+            // Validate the refresh token and get the user
+            var user = await this._refreshTokenService.ValidateRefreshTokenAsync(refreshToken);
+            
+            if (user == null)
+            {
+                throw new Exception("Session expirée, veuillez vous reconnecter");
+            }
+
+            // Generate new JWT token
+            var roles = await this._userRepo.GetRolesAsync(user);
+            var newToken = this._jwt.GenerateJwtToken(user, roles);
+
+            // Generate new refresh token
+            var newRefreshToken = await this._refreshTokenService.CreateRefreshTokenAsync(user);
+
+            return new AuthResponseDto
+            {
+                token = newToken,
+                refreshToken = newRefreshToken.Token,
+                user = new UserDto
+                {
+                    id = user.Id,
+                    name = user.UserName,
+                    email = user.Email,
+                    emailConfirmed = user.EmailConfirmed
+                }
             };
         }
     }

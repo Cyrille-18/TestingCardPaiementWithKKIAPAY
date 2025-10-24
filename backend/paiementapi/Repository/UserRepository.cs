@@ -31,12 +31,24 @@ namespace paiementapi.Repository
         }
 
         /// <summary>
+        /// Retrieves a user by their ID asynchronously.
+        /// </summary>
+        /// <param name="id">The ID of the user to retrieve.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the user if found; otherwise, null.</returns>
+        public Task<IdentityUser?> GetByIdAsync(string id)
+        {
+            return this._userManager.FindByIdAsync(id);
+        }
+
+        /// <summary>
         /// Retrieves a user by their email address asynchronously.
         /// </summary>
         /// <param name="email">The email address of the user to retrieve.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the user if found; otherwise, null.</returns>
         public Task<IdentityUser?> GetByEmailAsync(string email)
-            => this._userManager.FindByEmailAsync(email);
+        {
+            return this._userManager.FindByEmailAsync(email);
+        }
 
         /// <summary>
         /// Creates a new user with the specified password asynchronously.

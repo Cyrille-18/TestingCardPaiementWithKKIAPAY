@@ -23,6 +23,13 @@ namespace paiementapi.Interfaces
         Task<IdentityUser?> GetByEmailAsync(string email);
 
         /// <summary>
+        /// Gets a user by their ID.
+        /// </summary>
+        /// <param name="id">The user's ID.</param>
+        /// <returns>The user if found; otherwise, null.</returns>
+        Task<IdentityUser?> GetByIdAsync(string id);
+
+        /// <summary>
         /// Creates a new user with the specified password.
         /// </summary>
         /// <param name="user">The user to create.</param>

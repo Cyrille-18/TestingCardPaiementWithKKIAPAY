@@ -1,0 +1,53 @@
+<div class="container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <h1>Confirmation en cours...</h1>
+    <p class="message">Vérification de votre email...</p>
+  </div>
+
+  <!-- Success State -->
+  <div *ngIf="!isLoading && isConfirmed" class="success-state">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#22c55e" />
+        <path
+          d="M9 12l2 2 4-4"
+          stroke="white"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    <h1>Email confirmé avec succès</h1>
+    <p class="message">
+      Vous serez redirigé vers la page de connexion dans {{ countdown }}s
+    </p>
+    <p class="fallback-text">
+      Si ça ne marche pas,
+      <a href="#" (click)="goToLogin()" class="link">cliquer ici</a>
+    </p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && !isConfirmed" class="error-state">
+    <div class="error-icon">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#ef4444" />
+        <path
+          d="M15 9l-6 6M9 9l6 6"
+          stroke="white"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    <h1>Erreur de confirmation</h1>
+    <p class="message">{{ errorMessage }}</p>
+    <p class="fallback-text">
+      <a href="#" (click)="goToLogin()" class="link">Retour à la connexion</a>
+    </p>
+  </div>
+</div>

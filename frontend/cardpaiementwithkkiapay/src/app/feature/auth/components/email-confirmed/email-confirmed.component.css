@@ -1,0 +1,289 @@
+/* Container */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  text-align: center;
+}
+
+/* States layout */
+.success-state,
+.error-state,
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Icons */
+.success-icon,
+.error-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 40px;
+}
+
+.success-icon {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+}
+
+.error-icon {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+.success-icon svg,
+.error-icon svg {
+  width: 60px;
+  height: 60px;
+}
+
+/* Spinner */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 40px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Content */
+h1 {
+  color: #1f2937;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  line-height: 1.3;
+}
+
+.message {
+  color: #4b5563;
+  font-size: 18px;
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.fallback-text {
+  color: #6b7280;
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+
+.link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.link:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 16px;
+  }
+
+  .success-icon,
+  .error-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 32px;
+  }
+
+  .success-icon svg,
+  .error-icon svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .message {
+    font-size: 16px;
+  }
+
+  .fallback-text {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .success-icon,
+  .error-icon {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 28px;
+  }
+
+  .success-icon svg,
+  .error-icon svg {
+    width: 45px;
+    height: 45px;
+  }
+
+  .spinner {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .message {
+    font-size: 15px;
+  }
+
+  .fallback-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 8px;
+  }
+
+  .success-icon,
+  .error-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 24px;
+  }
+
+  .success-icon svg,
+  .error-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+
+  .fallback-text {
+    font-size: 13px;
+  }
+}
+
+/* Tablet screens */
+@media (min-width: 641px) and (max-width: 1024px) {
+
+  .success-icon,
+  .error-icon {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 48px;
+  }
+
+  .success-icon svg,
+  .error-icon svg {
+    width: 70px;
+    height: 70px;
+  }
+
+  .spinner {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .message {
+    font-size: 20px;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1440px) {
+
+  .success-icon,
+  .error-icon {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 56px;
+  }
+
+  .success-icon svg,
+  .error-icon svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  .spinner {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 56px;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  .message {
+    font-size: 22px;
+  }
+}

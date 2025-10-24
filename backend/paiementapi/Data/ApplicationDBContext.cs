@@ -11,6 +11,7 @@ namespace paiementapi.Data
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using paiementapi.Models;
 
     /// <summary>
     /// Represents the application's database context.
@@ -25,5 +26,10 @@ namespace paiementapi.Data
             : base(options)
         {
         }
+
+        /// <summary>
+        /// Gets or sets the refresh tokens DbSet.
+        /// </summary>
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

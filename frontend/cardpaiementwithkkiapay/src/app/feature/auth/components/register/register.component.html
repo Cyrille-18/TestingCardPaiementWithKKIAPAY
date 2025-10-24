@@ -1,0 +1,113 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="brand">
+      <div class="logo">TestingKKIAPAYCardPaiement</div>
+      <div class="sub">Créez votre compte</div>
+    </div>
+
+    <!-- Messages d'erreur et de succès -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <label for="username">Nom d'utilisateur</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        placeholder="votre nom d'utilisateur"
+        [class.error]="
+          registerForm.get('username')?.invalid &&
+          registerForm.get('username')?.touched
+        "
+      />
+      <div *ngIf="getFieldError('username')" class="field-error">
+        {{ getFieldError("username") }}
+      </div>
+
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="vous@exemple.com"
+        [class.error]="
+          registerForm.get('email')?.invalid &&
+          registerForm.get('email')?.touched
+        "
+      />
+      <div *ngIf="getFieldError('email')" class="field-error">
+        {{ getFieldError("email") }}
+      </div>
+
+      <label for="password">Mot de passe</label>
+      <div class="input-group">
+        <input
+          id="password"
+          formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="••••••••"
+          [class.error]="
+            registerForm.get('password')?.invalid &&
+            registerForm.get('password')?.touched
+          "
+        />
+        <button
+          class="icon-btn"
+          type="button"
+          [attr.data-state]="showPassword ? 'on' : 'off'"
+          aria-label="Afficher/masquer le mot de passe"
+          title="Afficher/Masquer"
+          (click)="togglePasswordVisibility()"
+        >
+          <svg
+            class="eye"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill="currentColor"
+              d="M12 5C7 5 3 12 3 12s4 7 9 7 9-7 9-7-4-7-9-7Zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"
+            />
+          </svg>
+          <svg
+            class="eye-off"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill="currentColor"
+              d="M2 12s4.5-7 10-7c.9 0 1.8.14 2.64.4l-1.6 1.6A5 5 0 0 0 7 12a5 5 0 0 0 6.99 4.56l1.6 1.6A10.9 10.9 0 0 1 12 19c-5.5 0-10-7-10-7Zm20 0 s-1.1 1.78-2.86 3.47L19 15.33C20.71 13.7 22 12 22 12ZM4.41 3.99 3 5.4l4.2 4.2A5 5 0 0 0 7 12a5 5 0 0 0 5 5c.56 0 1.1-.1 1.6-.27l3 3 1.41-1.41-13.6-13.6Z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div *ngIf="getFieldError('password')" class="field-error">
+        {{ getFieldError("password") }}
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid || isLoading"
+        [class.loading]="isLoading"
+      >
+        <span *ngIf="!isLoading">S'inscrire</span>
+        <span *ngIf="isLoading">Inscription...</span>
+      </button>
+    </form>
+    <p class="muted">Déjà un compte ? <a href="/login">Se connecter</a></p>
+    <p class="disclaimer">
+      Plateforme créée à des fins de tests pour l'intégration du paiement
+      Kkiapay. Non destinée à un usage commercial.
+    </p>
+  </div>
+  <div class="grain"></div>
+</div>

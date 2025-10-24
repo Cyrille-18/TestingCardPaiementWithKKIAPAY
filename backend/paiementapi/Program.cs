@@ -83,10 +83,23 @@ builder.Services.AddAuthentication(options =>
 // DI for application services
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<RefreshTokenService>();
 builder.Services.AddSingleton<JwtHelper>();
 builder.Services.AddSingleton<IEmailService, EmailService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddControllers();
+
+// CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -98,6 +111,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors("AllowAngularApp");
 
 app.UseAuthentication();
 app.UseAuthorization();

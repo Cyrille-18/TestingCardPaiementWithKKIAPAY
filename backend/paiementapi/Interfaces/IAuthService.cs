@@ -42,5 +42,12 @@ namespace paiementapi.Interfaces
         /// <param name="encodedToken">The encoded token received for email confirmation.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
         Task ConfirmEmailAsync(string userId, string encodedToken);
+
+        /// <summary>
+        /// Refreshes an authentication token using a refresh token.
+        /// </summary>
+        /// <param name="refreshToken">The refresh token.</param>
+        /// <returns>An authentication response DTO with new tokens.</returns>
+        Task<AuthResponseDto> RefreshTokenAsync(string refreshToken);
     }
 }

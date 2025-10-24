@@ -82,6 +82,7 @@ namespace paiementapi.Templates
                 <a href='{confirmationLink}' class='btn'>Confirmer mon email</a>
                 </div>
                 <div class='footer'>
+                <p>Ce lien est valable pendant 24 heures.</p>
                 <p>Si vous n'avez pas créé de compte sur TestingKKIAPAYCardPaiement, ignorez cet email.</p>
                 <p>&copy; 2025 TestingKKIAPAYCardPaiement. Tous droits réservés.</p>
                 </div>

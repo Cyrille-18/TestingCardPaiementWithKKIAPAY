@@ -5,17 +5,18 @@
 namespace paiementapi.Services
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.WebUtilities;
-    using paiementapi.Dtos.auth;
-    using paiementapi.Helpers;
-    using paiementapi.Interfaces;
-    using paiementapi.Templates;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
+using paiementapi.Dtos.auth;
+using paiementapi.Exceptions;
+using paiementapi.Helpers;
+using paiementapi.Interfaces;
+using paiementapi.Templates;
 
     /// <summary>
     /// Provides authentication services such as user registration and login.
@@ -156,7 +157,7 @@ namespace paiementapi.Services
 
             if (!user.EmailConfirmed)
             {
-                throw new Exception("Veuillez confirmer votre adresse email avant de vous connecter");
+                throw new EmailNotConfirmedException();
             }
 
             var roles = await this._userRepo.GetRolesAsync(user);
@@ -213,6 +214,21 @@ namespace paiementapi.Services
                     emailConfirmed = user.EmailConfirmed
                 }
             };
+        }
+
+        /// <summary>
+        /// Logs out the user by revoking the refresh token.
+        /// </summary>
+        /// <param name="refreshToken">The refresh token to revoke.</param>
+        public async Task LogoutAsync(string refreshToken)
+        {
+            var revoked = await this._refreshTokenService.RevokeRefreshTokenAsync(refreshToken);
+            
+            if (!revoked)
+            {
+                // Token already revoked or invalid - still consider it a successful logout
+                // to prevent information disclosure
+            }
         }
     }
 }

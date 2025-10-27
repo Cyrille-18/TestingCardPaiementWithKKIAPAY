@@ -10,7 +10,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using paiementapi.Options;
 
 namespace paiementapi.Helpers
 {
@@ -19,15 +21,15 @@ namespace paiementapi.Helpers
     /// </summary>
     public class JwtHelper
     {
-        private readonly IConfiguration _config;
+        private readonly JwtOptions _jwtOptions;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JwtHelper"/> class with the specified configuration.
+        /// Initializes a new instance of the <see cref="JwtHelper"/> class with the specified JWT options.
         /// </summary>
-        /// <param name="config">The application configuration.</param>
-        public JwtHelper(IConfiguration config)
+        /// <param name="jwtOptions">The JWT configuration options.</param>
+        public JwtHelper(IOptions<JwtOptions> jwtOptions)
         {
-            _config = config;
+            _jwtOptions = jwtOptions.Value;
         }
 
         /// <summary>
@@ -46,14 +48,19 @@ namespace paiementapi.Helpers
                 };
             claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")!));
+            if (string.IsNullOrEmpty(_jwtOptions.Key))
+            {
+                throw new InvalidOperationException("JWT Key is not configured. Please set JWT:Key in your configuration.");
+            }
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: Environment.GetEnvironmentVariable("JWT_ISSUER"),
-                audience: Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+                issuer: _jwtOptions.Issuer,
+                audience: _jwtOptions.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(3),
+                expires: DateTime.UtcNow.AddHours(_jwtOptions.ExpirationHours),
                 signingCredentials: creds
             );
 

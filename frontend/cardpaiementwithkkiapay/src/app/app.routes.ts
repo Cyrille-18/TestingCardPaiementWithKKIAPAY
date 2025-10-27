@@ -34,6 +34,14 @@ export const routes: Routes = [
       import('./feature/home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'card',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./feature/cards/Components/card/card.component').then(
+        (m) => m.CardComponent
+      ),
+  },
+  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full',

@@ -11,6 +11,7 @@ namespace paiementapi.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using paiementapi.Dtos.auth;
+    using paiementapi.Exceptions;
     using paiementapi.Interfaces;
 
     /// <summary>
@@ -107,13 +108,12 @@ namespace paiementapi.Controllers
                 var result = await this._authService.LoginAsync(dto);
                 return this.Ok(result);
             }
+            catch (EmailNotConfirmedException ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
-                // Handle email confirmation case specifically
-                if (ex.Message.Contains("confirmer votre adresse email"))
-                {
-                    return this.BadRequest(ex.Message);
-                }
                 return this.BadRequest("Email ou mot de passe incorrect");
             }
         }
@@ -135,6 +135,26 @@ namespace paiementapi.Controllers
             catch (Exception ex)
             {
                 return this.BadRequest("Session expirée, veuillez vous reconnecter");
+            }
+        }
+
+        /// <summary>
+        /// Logs out the user by revoking the refresh token.
+        /// </summary>
+        /// <param name="refreshTokenDto">The refresh token data transfer object.</param>
+        /// <returns>An IActionResult indicating the result of the logout process.</returns>
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout([FromBody] RefreshTokenDto refreshTokenDto)
+        {
+            try
+            {
+                await this._authService.LogoutAsync(refreshTokenDto.RefreshToken);
+                return this.Ok(new { message = "Déconnexion réussie" });
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { message = "Erreur lors de la déconnexion" });
             }
         }
     }

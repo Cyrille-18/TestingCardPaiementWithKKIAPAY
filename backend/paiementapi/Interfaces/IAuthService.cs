@@ -49,5 +49,11 @@ namespace paiementapi.Interfaces
         /// <param name="refreshToken">The refresh token.</param>
         /// <returns>An authentication response DTO with new tokens.</returns>
         Task<AuthResponseDto> RefreshTokenAsync(string refreshToken);
+
+        /// <summary>
+        /// Logs out the user by revoking the refresh token.
+        /// </summary>
+        /// <param name="refreshToken">The refresh token to revoke.</param>
+        Task LogoutAsync(string refreshToken);
     }
 }

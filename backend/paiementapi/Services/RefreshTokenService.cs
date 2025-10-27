@@ -85,6 +85,27 @@ namespace paiementapi.Services
         }
 
         /// <summary>
+        /// Revokes a specific refresh token.
+        /// </summary>
+        /// <param name="token">The refresh token to revoke.</param>
+        /// <returns>True if the token was found and revoked, false otherwise.</returns>
+        public async Task<bool> RevokeRefreshTokenAsync(string token)
+        {
+            var refreshToken = await this._context.RefreshTokens
+                .FirstOrDefaultAsync(rt => rt.Token == token && rt.IsActive);
+
+            if (refreshToken == null)
+            {
+                return false;
+            }
+
+            refreshToken.IsRevoked = true;
+            await this._context.SaveChangesAsync();
+
+            return true;
+        }
+
+        /// <summary>
         /// Revokes all refresh tokens for a specific user.
         /// </summary>
         /// <param name="userId">The user ID.</param>

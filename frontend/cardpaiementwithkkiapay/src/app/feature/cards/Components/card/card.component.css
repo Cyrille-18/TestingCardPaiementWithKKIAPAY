@@ -1,0 +1,616 @@
+.card-page {
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 10% 0%, #ffffff 0%, #f3f3f3 60%, #ededed 100%);
+  color: #0e0e0e;
+  position: relative;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Navbar */
+.navbar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left .logo {
+  font-weight: 800;
+  font-size: 20px;
+  color: #0f0f0f;
+  letter-spacing: 0.2px;
+}
+
+.navbar-right .user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.user-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.username {
+  font-weight: 500;
+  color: #0f0f0f;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-btn:hover {
+  background: #f0f0f0;
+  color: #0f0f0f;
+}
+
+.logout-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Main Content */
+.main-content {
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header Section */
+.header-section {
+  text-align: center;
+  padding: 4rem 0;
+  margin-bottom: 2rem;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.main-subtitle {
+  font-size: 1.3rem;
+  color: #4a5568;
+  margin-bottom: 0;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Cards Section */
+.cards-section {
+  margin-bottom: 60px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid #f0f0f0;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-item.selected {
+  border: 3px solid #10b981 !important;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3) !important;
+  transform: translateY(-4px) !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.1) 100%);
+}
+
+.card-item.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #10b981;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.card-item:hover:not(.selected) {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-item.selected .card-visual {
+  box-shadow: 0 8px 32px rgba(15, 15, 15, 0.2);
+  transform: scale(1.02);
+}
+
+.card-visual {
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  position: relative;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  margin-bottom: 16px;
+  min-height: 220px;
+  flex-shrink: 0;
+}
+
+.card-visual::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+/* Card Types */
+.card-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+}
+
+.card-insufficient {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+}
+
+.card-declined {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+}
+
+.card-fraudulent {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+}
+
+.card-chip {
+  width: 40px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.card-chip::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+
+.card-number {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-top: 60px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: 'Courier New', monospace;
+  line-height: 1.2;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: white;
+  font-size: 13px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.card-holder {
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+.card-expiry {
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.card-brand {
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+.card-name {
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #1a1a1a;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.card-description {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+  padding: 0 10px;
+}
+
+.card-indices {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: auto;
+}
+
+.indice-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.indice-item:last-child {
+  margin-bottom: 0;
+}
+
+.indice-label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 80px;
+}
+
+.indice-value {
+  font-weight: 700;
+  color: #1a1a1a;
+  font-family: 'Courier New', monospace;
+  background: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+}
+
+/* Payment Button Section */
+.payment-button-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+.payment-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+  min-width: 250px;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.payment-btn:hover:not(.disabled)::before {
+  left: 100%;
+}
+
+.payment-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.payment-btn.disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.payment-btn.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.payment-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.payment-hint {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+}
+
+.grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 0, 0, .035) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-content {
+    padding: 0 16px;
+  }
+
+  .navbar-left .logo {
+    font-size: 15px;
+  }
+
+  .user-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .main-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-visual {
+    height: 200px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+
+  .payment-button-section {
+    margin-top: 2rem;
+    gap: 0.75rem;
+  }
+
+  .payment-btn {
+    padding: 14px 28px;
+    font-size: 16px;
+    min-width: 220px;
+  }
+
+  .indice-item {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+
+  .indice-label {
+    min-width: 70px;
+  }
+
+  .indice-value {
+    padding: 1px 4px;
+    font-size: 0.8rem;
+  }
+
+  .card-chip {
+    width: 35px;
+    height: 25px;
+    top: 18px;
+    left: 18px;
+  }
+
+  .card-brand {
+    font-size: 13px;
+    bottom: 45px;
+    right: 18px;
+  }
+
+  .user-info {
+    gap: 8px;
+  }
+
+  .username {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .main-subtitle {
+    font-size: 1rem;
+  }
+
+  .card-visual {
+    height: 180px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .payment-button-section {
+    margin-top: 1.5rem;
+    gap: 0.5rem;
+  }
+
+  .payment-btn {
+    padding: 12px 24px;
+    font-size: 15px;
+    min-width: 200px;
+  }
+
+  .indice-item {
+    font-size: 0.75rem;
+    margin-bottom: 3px;
+  }
+
+  .indice-label {
+    min-width: 60px;
+  }
+
+  .indice-value {
+    padding: 1px 3px;
+    font-size: 0.75rem;
+  }
+
+  .card-chip {
+    width: 30px;
+    height: 22px;
+    top: 16px;
+    left: 16px;
+  }
+
+  .card-brand {
+    font-size: 12px;
+    bottom: 40px;
+    right: 16px;
+  }
+
+  .card-holder,
+  .card-expiry {
+    font-size: 12px;
+  }
+
+  .card-brand {
+    font-size: 14px;
+  }
+
+  .card-name {
+    font-size: 1.1rem;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+  }
+
+  .username {
+    font-size: 12px;
+  }
+
+  .navbar-left .logo {
+    font-size: 13px;
+  }
+
+  .user-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .user-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+}

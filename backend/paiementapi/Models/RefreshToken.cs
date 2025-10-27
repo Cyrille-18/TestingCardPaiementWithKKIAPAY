@@ -7,6 +7,8 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace paiementapi.Models
 {
@@ -25,7 +27,13 @@ namespace paiementapi.Models
         /// Gets or sets the user ID associated with this refresh token.
         /// </summary>
         [Required]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user navigation property.
+        /// </summary>
+        public IdentityUser? User { get; set; }
 
         /// <summary>
         /// Gets or sets the refresh token value.

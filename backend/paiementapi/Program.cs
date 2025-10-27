@@ -7,10 +7,12 @@ using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using paiementapi.Data;
 using paiementapi.Helpers;
 using paiementapi.Interfaces;
+using paiementapi.Options;
 using paiementapi.Repository;
 using paiementapi.Services;
 
@@ -49,6 +51,18 @@ Env.Load(); // load environment variable in .env
 var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
     ?? throw new Exception("CONNECTION_STRING is missing in .env");
 
+// JWT Options Configuration
+builder.Services.Configure<JwtOptions>(options =>
+{
+    options.Key = Environment.GetEnvironmentVariable("JWT_KEY")
+        ?? throw new Exception("JWT_KEY is missing in .env");
+    options.Issuer = Environment.GetEnvironmentVariable("JWT_ISSUER")
+        ?? throw new Exception("JWT_ISSUER is missing in .env");
+    options.Audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")
+        ?? throw new Exception("JWT_AUDIENCE is missing in .env");
+    options.ExpirationHours = int.Parse(Environment.GetEnvironmentVariable("JWT_EXPIRATION_HOURS") ?? "1");
+});
+
 // EF Core with PostgreSQL
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseNpgsql(connectionString));
@@ -58,8 +72,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDBContext>()
     .AddDefaultTokenProviders();
 
-// JWT
-var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")!);
+// JWT Authentication
+var jwtOptions = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>().Value;
+var key = Encoding.UTF8.GetBytes(jwtOptions.Key);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -74,8 +89,8 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
-        ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+        ValidIssuer = jwtOptions.Issuer,
+        ValidAudience = jwtOptions.Audience,
         IssuerSigningKey = new SymmetricSecurityKey(key),
     };
 });

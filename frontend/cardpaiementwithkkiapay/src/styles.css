@@ -1,1 +1,291 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global CSS Variables for Responsive Design */
+:root {
+  /* Breakpoints as CSS custom properties for consistency */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+
+  /* Spacing variables */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* Font sizes */
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-xxl: 24px;
+  --font-size-xxxl: 32px;
+
+  /* Touch targets */
+  --touch-target-min: 44px;
+  --touch-target-comfortable: 48px;
+
+  /* Colors */
+  --color-primary: #0f0f0f;
+  --color-primary-hover: #000;
+  --color-error: #ef4444;
+  --color-success: #22c55e;
+  --color-link: #3b82f6;
+  --color-link-hover: #1d4ed8;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.06);
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+}
+
+/* Mobile First - Extra Small Screens */
+@media (max-width: 480px) {
+  :root {
+    --spacing-xs: 6px;
+    --spacing-sm: 10px;
+    --spacing-md: 12px;
+    --spacing-lg: 20px;
+    --spacing-xl: 28px;
+    --spacing-xxl: 40px;
+  }
+}
+
+/* Global responsive text utilities */
+.text-responsive-xs {
+  font-size: var(--font-size-xs);
+}
+
+.text-responsive-sm {
+  font-size: var(--font-size-sm);
+}
+
+.text-responsive-base {
+  font-size: var(--font-size-base);
+}
+
+.text-responsive-md {
+  font-size: var(--font-size-md);
+}
+
+.text-responsive-lg {
+  font-size: var(--font-size-lg);
+}
+
+.text-responsive-xl {
+  font-size: var(--font-size-xl);
+}
+
+.text-responsive-xxl {
+  font-size: var(--font-size-xxl);
+}
+
+.text-responsive-xxxl {
+  font-size: var(--font-size-xxxl);
+}
+
+/* Responsive spacing utilities */
+.p-responsive-xs {
+  padding: var(--spacing-xs);
+}
+
+.p-responsive-sm {
+  padding: var(--spacing-sm);
+}
+
+.p-responsive-md {
+  padding: var(--spacing-md);
+}
+
+.p-responsive-lg {
+  padding: var(--spacing-lg);
+}
+
+.p-responsive-xl {
+  padding: var(--spacing-xl);
+}
+
+.p-responsive-xxl {
+  padding: var(--spacing-xxl);
+}
+
+.m-responsive-xs {
+  margin: var(--spacing-xs);
+}
+
+.m-responsive-sm {
+  margin: var(--spacing-sm);
+}
+
+.m-responsive-md {
+  margin: var(--spacing-md);
+}
+
+.m-responsive-lg {
+  margin: var(--spacing-lg);
+}
+
+.m-responsive-xl {
+  margin: var(--spacing-xl);
+}
+
+.m-responsive-xxl {
+  margin: var(--spacing-xxl);
+}
+
+/* Global touch-friendly improvements */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+a[role="button"] {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
+
+/* Prevent zoom on iOS inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea,
+select {
+  font-size: 16px;
+}
+
+/* Global focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users but keep for keyboard users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Improved scrolling on mobile */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Better box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Improved text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Safe area insets for devices with notches */
+@supports (padding: max(0px)) {
+  .safe-area-inset-top {
+    padding-top: max(var(--spacing-md), env(safe-area-inset-top));
+  }
+
+  .safe-area-inset-bottom {
+    padding-bottom: max(var(--spacing-md), env(safe-area-inset-bottom));
+  }
+
+  .safe-area-inset-left {
+    padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+  }
+
+  .safe-area-inset-right {
+    padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  }
+}
+
+/* Responsive container utilities */
+.container-responsive {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-responsive {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container-responsive {
+    max-width: 1440px;
+  }
+}
+
+/* Grid utilities for responsive layouts */
+.grid-responsive {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+  }
+}
+
+/* Flex utilities */
+.flex-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.flex-responsive>* {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .flex-responsive>* {
+    flex: 1 1 calc(50% - var(--spacing-md));
+  }
+}
+
+@media (min-width: 1024px) {
+  .flex-responsive>* {
+    flex: 1 1 calc(33.333% - var(--spacing-md));
+  }
+}

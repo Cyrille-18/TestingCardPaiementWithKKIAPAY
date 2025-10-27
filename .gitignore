@@ -51,6 +51,9 @@ publish/
 # Dotnet tools
 .dotnet-tools/
 
+#env files
+.env
+
 # =========================
 # Angular 19 (Frontend)
 # =========================
@@ -84,8 +87,8 @@ pnpm-debug.log*
 .angular/cache/
 
 # Environment files (keep only templates!)
-src/environments/*.ts
-!src/environments/environment.example.ts
+frontend/cardpaiementwithkkiapay/src/environments/*.ts
+!frontend/cardpaiementwithkkiapay/src/environments/environment.example.ts
 
 # Misc
 .DS_Store

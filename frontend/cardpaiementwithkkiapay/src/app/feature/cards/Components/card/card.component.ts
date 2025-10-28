@@ -52,16 +52,8 @@ export class CardComponent implements OnInit, OnDestroy {
       return;
     }
 
-    switch (this.selectedCard) {
-      case 'success':
-        break;
-      case 'insufficient':
-        break;
-      case 'declined':
-        break;
-      case 'fraudulent':
-        break;
-    }
+    // Redirect to product page as requested
+    this.router.navigate(['/product']);
   }
 
   logout(): void {

@@ -1,0 +1,47 @@
+<div class="purchase-page">
+  <app-navbar [user]="currentUser" (logout)="logout()"></app-navbar>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="header-section">
+        <h1 class="main-title">Achat de produit</h1>
+        <p class="main-subtitle">
+          Vérifiez les détails puis continuez vers le paiement
+        </p>
+      </section>
+
+      <section class="product-section">
+        <div class="product-actions">
+          <button class="secondary" (click)="back()">Retour</button>
+        </div>
+        <div class="product-card">
+          <img
+            class="product-image"
+            src="https://images.unsplash.com/photo-1518442394183-0916b55f0b2a?q=80&w=800&auto=format&fit=crop"
+            alt="Bluetooth Headphones"
+          />
+          <div class="product-info">
+            <h2 class="product-name">Casque Bluetooth Noise-Cancelling</h2>
+            <p class="product-desc">
+              Confort longue durée, réduction de bruit active, 30h d'autonomie,
+              charge rapide.
+            </p>
+            <div class="product-meta">
+              <div class="price">
+                <span class="amount">49 900 CFA</span>
+                <span class="vat">TTC</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="primary" (click)="proceedToPayment()">
+                Payer maintenant
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="grain"></div>
+</div>

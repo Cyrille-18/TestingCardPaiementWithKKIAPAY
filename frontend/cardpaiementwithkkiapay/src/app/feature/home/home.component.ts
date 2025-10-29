@@ -3,6 +3,7 @@ import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth/services/auth.service';
 import { Subscription } from 'rxjs';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 interface User {
   name: string;
@@ -12,7 +13,7 @@ interface User {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, NavbarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

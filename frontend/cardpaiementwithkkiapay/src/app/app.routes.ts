@@ -34,6 +34,30 @@ export const routes: Routes = [
       import('./feature/home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'product',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./feature/product/product.component').then(
+        (m) => m.ProductComponent
+      ),
+  },
+  {
+    path: 'purchase',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./feature/purchase/purchase.component').then(
+        (m) => m.PurchaseComponent
+      ),
+  },
+  {
+    path: 'subscription',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./feature/subscription/subscription.component').then(
+        (m) => m.SubscriptionComponent
+      ),
+  },
+  {
     path: 'card',
     canActivate: [AuthGuard],
     loadComponent: () =>

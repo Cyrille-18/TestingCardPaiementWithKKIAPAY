@@ -1,0 +1,135 @@
+.purchase-page {
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 10% 0%, #ffffff 0%, #f3f3f3 60%, #ededed 100%);
+  color: #0e0e0e;
+  position: relative;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Navbar now shared component; remove local navbar styles */
+
+.main-content {
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.header-section {
+  text-align: center;
+  padding: 3rem 0 1rem 0;
+}
+
+.main-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.main-subtitle {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 0;
+}
+
+.product-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+}
+
+.product-card {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  background: #fff;
+  border: 2px solid #f0f0f0;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.product-image {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #f3f4f6;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  margin: 0 0 8px 0;
+  font-size: 1.4rem;
+  color: #111827;
+}
+
+.product-desc {
+  margin: 0 0 16px 0;
+  color: #6b7280;
+}
+
+.product-meta {
+  margin-top: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.price .amount {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.price .vat {
+  color: #6b7280;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.secondary {
+  background: #f3f4f6;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.actions .primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 0, 0, .035) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+
+@media (max-width: 900px) {
+  .product-card {
+    grid-template-columns: 1fr;
+  }
+}

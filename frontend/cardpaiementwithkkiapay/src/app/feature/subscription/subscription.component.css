@@ -1,0 +1,206 @@
+.subscription-page {
+    min-height: 100vh;
+    background: radial-gradient(1200px 600px at 10% 0%, #ffffff 0%, #f3f3f3 60%, #ededed 100%);
+    color: #0e0e0e;
+    position: relative;
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 20px;
+    color: #0f0f0f;
+    letter-spacing: 0.2px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.user-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.username {
+    font-weight: 500;
+    color: #0f0f0f;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-btn:hover {
+    background: #f0f0f0;
+    color: #0f0f0f;
+}
+
+.logout-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.main-content {
+    padding: 40px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.header-section {
+    text-align: center;
+    padding: 3rem 0 1rem 0;
+}
+
+.main-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+}
+
+.main-subtitle {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 0;
+}
+
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.plan-card {
+    position: relative;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.plan-card.recommended {
+    border-color: #10b981;
+}
+
+.badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: #10b981;
+    color: white;
+    border-radius: 9999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.plan-name {
+    margin: 0 0 6px 0;
+    color: #111827;
+}
+
+.plan-price {
+    margin: 0 0 12px 0;
+}
+
+.plan-price .amount {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.plan-price .period {
+    color: #6b7280;
+}
+
+.plan-features {
+    margin: 0 0 14px 0;
+    padding-left: 18px;
+    color: #4b5563;
+}
+
+.primary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.secondary {
+    background: #f3f4f6;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.grain {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, .035) 1px, transparent 1px);
+    background-size: 5px 5px;
+}
+
+@media (max-width: 768px) {
+    .plans-grid {
+        grid-template-columns: 1fr;
+    }
+}

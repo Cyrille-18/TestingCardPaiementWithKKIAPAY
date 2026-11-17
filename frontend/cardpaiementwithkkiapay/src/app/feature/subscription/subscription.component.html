@@ -1,0 +1,53 @@
+<div class="subscription-page">
+  <app-navbar [user]="currentUser" (logout)="logout()"></app-navbar>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="header-section">
+        <h1 class="main-title">Souscription</h1>
+        <p class="main-subtitle">Choisissez un plan et souscrivez au service</p>
+      </section>
+
+      <section class="plans-section">
+        <div class="plans-grid">
+          <div class="plan-card">
+            <h3 class="plan-name">Mensuel</h3>
+            <div class="plan-price">
+              <span class="amount">3 900 CFA</span>
+              <span class="period">/mois</span>
+            </div>
+            <ul class="plan-features">
+              <li>Accès standard</li>
+              <li>Support email</li>
+            </ul>
+            <button class="primary" (click)="startSubscription()">
+              Souscrire
+            </button>
+          </div>
+
+          <div class="plan-card recommended">
+            <div class="badge">Populaire</div>
+            <h3 class="plan-name">Annuel</h3>
+            <div class="plan-price">
+              <span class="amount">39 900 CFA</span>
+              <span class="period">/an</span>
+            </div>
+            <ul class="plan-features">
+              <li>Accès complet</li>
+              <li>Support prioritaire</li>
+              <li>2 mois offerts</li>
+            </ul>
+            <button class="primary" (click)="startSubscription()">
+              Souscrire
+            </button>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="secondary" (click)="back()">Retour</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="grain"></div>
+</div>
